@@ -20,7 +20,7 @@
       /* brick = 横方向のメイソンリー（行を定義） */
       .lanes.rows {
         display: grid-lanes;
-        grid-template-rows: repeat(4, minmax(3rem, auto));
+        grid-template-rows: repeat(4, minmax(48px, auto));
         align-items: start;
         gap: 8px;
         width: 100%;
@@ -29,30 +29,9 @@
       .lanes.rows .card {
         width: calc((100cqi - 16px) / 3);
       }
-
-      @supports not (display: grid-lanes) {
-        .lanes.columns {
-          column-count: 3;
-          column-gap: 8px;
-        }
-        .lanes.columns .card {
-          break-inside: avoid;
-          margin-bottom: 8px;
-        }
-        .lanes.rows {
-          display: flex;
-          flex-wrap: wrap;
-          align-content: flex-start;
-        }
-      }
     </style>
   </head>
   <body>
-    <p class="fallback-note">
-      お使いのブラウザーは
-      <code>display: grid-lanes</code> 非対応のため、近似表示しています。
-    </p>
-
     <p class="demo-head">
       <code>grid-template-columns</code> なら縦（waterfall）、<code
         >grid-template-rows</code

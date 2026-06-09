@@ -9,33 +9,15 @@
       /* これがメイソンリーの本体。たった数行 */
       .lanes {
         display: grid-lanes;
-        grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(144px, 1fr));
         gap: 10px;
         transition: max-width 0.3s;
-      }
-
-      /* grid-lanes 非対応ブラウザー向けのフォールバック */
-      @supports not (display: grid-lanes) {
-        .lanes {
-          column-count: auto;
-          column-width: 9rem;
-          column-gap: 10px;
-        }
-        .lanes .card {
-          break-inside: avoid;
-          margin-bottom: 10px;
-        }
       }
     </style>
   </head>
   <body>
-    <p class="fallback-note">
-      お使いのブラウザーは <code>display: grid-lanes</code> 非対応のため、CSS
-      Columns で近似表示しています。
-    </p>
-
     <p class="demo-head">
-      <code>repeat(auto-fill, minmax(9rem, 1fr))</code> ＋
+      <code>repeat(auto-fill, minmax(144px, 1fr))</code> ＋
       <code>display: grid-lanes</code> ／ 幅スライダーで列数の自動変化を確認
     </p>
 

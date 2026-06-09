@@ -8,30 +8,15 @@
     <style>
       .lanes {
         display: grid-lanes;
-        grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
         gap: 8px;
       }
       .lanes .card {
         will-change: transform, opacity;
       }
-      @supports not (display: grid-lanes) {
-        .lanes {
-          column-count: 3;
-          column-gap: 8px;
-        }
-        .lanes .card {
-          break-inside: avoid;
-          margin-bottom: 8px;
-        }
-      }
     </style>
   </head>
   <body>
-    <p class="fallback-note">
-      お使いのブラウザーは <code>display: grid-lanes</code> 非対応のため、CSS
-      Columns で近似表示しています。
-    </p>
-
     <p class="demo-head">
       レイアウトは
       <code>grid-lanes</code
@@ -57,7 +42,8 @@
     <script type="module">
       import {
         animate,
-        stagger
+        stagger,
+        spring
       } from "https://cdn.jsdelivr.net/npm/animejs@4/+esm";
 
       const stage = document.getElementById("stage");
@@ -121,7 +107,7 @@
           rotate: [() => (Math.random() - 0.5) * 16, 0],
           duration: 800,
           delay: stagger(90),
-          ease: "spring(1, 80, 10, 0)"
+          ease: spring({ mass: 1, stiffness: 80, damping: 10, velocity: 0 })
         });
       });
 

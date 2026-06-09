@@ -8,29 +8,14 @@
     <style>
       .lanes {
         display: grid-lanes;
-        grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
         gap: 8px;
       }
-      @supports not (display: grid-lanes) {
-        .lanes {
-          column-count: 3;
-          column-gap: 8px;
-        }
-        .lanes .card {
-          break-inside: avoid;
-          margin-bottom: 8px;
-        }
-      }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/Flip.min.js"></script>
   </head>
   <body>
-    <p class="fallback-note">
-      お使いのブラウザーは <code>display: grid-lanes</code> 非対応のため、CSS
-      Columns で近似表示しています。
-    </p>
-
     <p class="demo-head">
       <strong>FLIP</strong>（First-Last-Invert-Play）を
       <code>Flip.from()</code> 一発で。配置は <code>grid-lanes</code> 任せ
@@ -70,16 +55,27 @@
         return { id, el, h };
       });
 
+      // absoluteオプションは対象を絶対配置にするので、アニメ中はコンテナーの高さが
+      // 潰れて下のテキストが上下に跳ねる。アニメ中だけ高さを固定して防ぐ。
+      const lockHeight = () => {
+        stage.style.minHeight = stage.getBoundingClientRect().height + "px";
+      };
+      const unlockHeight = () => {
+        stage.style.minHeight = "";
+      };
+
       document.getElementById("shuffle").addEventListener("click", () => {
         const state = Flip.getState(stage.querySelectorAll(".card")); // 位置を記録
         cards = [...cards].sort(() => Math.random() - 0.5); // 配列をシャッフル
         for (const c of cards) stage.append(c.el); // 既存要素を新しい順序で並べ替え（移動）
+        lockHeight(); // アニメ中の高さ潰れ（下の要素の跳ね）を防ぐ
         Flip.from(state, {
           // 記録位置 → 新位置へ補間
           duration: 0.6,
           ease: "power2.inOut",
           absolute: true,
-          stagger: 0.02
+          stagger: 0.02,
+          onComplete: unlockHeight
         });
       });
 
@@ -89,10 +85,12 @@
         const state = Flip.getState(stage.querySelectorAll(".card"));
         victim.h = 70 + Math.floor(Math.random() * 160);
         victim.el.style.height = victim.h + "px"; // 既存要素の高さだけ変える
+        lockHeight(); // アニメ中の高さ潰れ（下の要素の跳ね）を防ぐ
         Flip.from(state, {
           duration: 0.5,
           ease: "power2.inOut",
-          absolute: true
+          absolute: true,
+          onComplete: unlockHeight
         });
       });
     </script>

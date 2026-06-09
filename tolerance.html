@@ -8,7 +8,7 @@
     <style>
       .lanes {
         display: grid-lanes;
-        grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
         gap: 6px;
         /* スライダーで書き換える吸着の許容幅 */
         flow-tolerance: var(--flow-tolerance, 1em);
@@ -17,26 +17,9 @@
         outline: 3px solid var(--accent);
         outline-offset: 2px;
       }
-
-      @supports not (display: grid-lanes) {
-        .lanes {
-          column-count: 4;
-          column-gap: 6px;
-        }
-        .lanes .card {
-          break-inside: avoid;
-          margin-bottom: 6px;
-        }
-      }
     </style>
   </head>
   <body>
-    <p class="fallback-note">
-      お使いのブラウザーは <code>display: grid-lanes</code> 非対応のため、CSS
-      Columns で近似表示しています（<code>flow-tolerance</code>
-      の効果は確認できません）。
-    </p>
-
     <p class="demo-head">
       <code>flow-tolerance</code>
       ＝「ほぼ同じ高さのレーン」とみなす許容幅。値で詰め方が変わる
