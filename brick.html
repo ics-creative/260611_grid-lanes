@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>waterfall vs brick | display: grid-lanes デモ</title>
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+      .lanes {
+        container-type: inline-size;
+      }
+
+      /* waterfall = 縦方向のメイソンリー（列を定義） */
+      .lanes.columns {
+        display: grid-lanes;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      /* brick = 横方向のメイソンリー（行を定義） */
+      .lanes.rows {
+        display: grid-lanes;
+        grid-template-rows: repeat(4, minmax(3rem, auto));
+        align-items: start;
+        gap: 8px;
+        width: 100%;
+        overflow: hidden;
+      }
+      .lanes.rows .card {
+        width: calc((100cqi - 16px) / 3);
+      }
+
+      @supports not (display: grid-lanes) {
+        .lanes.columns {
+          column-count: 3;
+          column-gap: 8px;
+        }
+        .lanes.columns .card {
+          break-inside: avoid;
+          margin-bottom: 8px;
+        }
+        .lanes.rows {
+          display: flex;
+          flex-wrap: wrap;
+          align-content: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="fallback-note">
+      お使いのブラウザーは
+      <code>display: grid-lanes</code> 非対応のため、近似表示しています。
+    </p>
+
+    <p class="demo-head">
+      <code>grid-template-columns</code> なら縦（waterfall）、<code
+        >grid-template-rows</code
+      >
+      なら横（brick）と向きが自動で決まる
+    </p>
+
+    <div class="controls">
+      <label>
+        <input type="radio" name="dir" value="columns" checked />
+        waterfall（grid-template-columns）
+      </label>
+      <label>
+        <input type="radio" name="dir" value="rows" />
+        brick（grid-template-rows）
+      </label>
+    </div>
+
+    <div class="lanes columns" id="stage"></div>
+
+    <script>
+      const stage = document.getElementById("stage");
+      // hue=(i*47)%360, h=70+((i*43)%120)
+      for (let i = 0; i < 12; i++) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.style.height = 70 + ((i * 43) % 120) + "px";
+        card.style.background = `hsl(${(i * 47) % 360} 60% 82%)`;
+        card.innerHTML = `<span class="badge">#${i + 1}</span>`;
+        stage.append(card);
+      }
+
+      for (const radio of document.querySelectorAll('input[name="dir"]')) {
+        radio.addEventListener("change", () => {
+          stage.className = "lanes " + radio.value;
+        });
+      }
+    </script>
+  </body>
+</html>

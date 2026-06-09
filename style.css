@@ -1,0 +1,186 @@
+/* 共有スタイル — display: grid-lanes デモ集 */
+
+:root {
+  --accent: #6366f1;
+  --accent-deep: #3223b3;
+  --ink: #374151;
+  --ink-sub: #64748b;
+  --border: #e2e8f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 16px;
+  font-family: "Helvetica Neue", "Hiragino Sans", "Noto Sans JP", system-ui,
+    sans-serif;
+  color: var(--ink);
+  background: #ffffff;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.demo-head {
+  margin: 0 0 12px;
+  font-size: 0.82rem;
+  color: var(--ink-sub);
+}
+.demo-head code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: #f1f5f9;
+  font-family: "SFMono-Regular", Consolas, "JetBrains Mono", monospace;
+  font-size: 0.92em;
+  color: var(--accent-deep);
+}
+
+/* カード共通 */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: #1f2937;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+.badge {
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.55);
+}
+.label {
+  margin-top: 2px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.5);
+}
+.label.accent {
+  color: var(--accent);
+}
+
+/* 操作系 */
+.controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 0.82rem;
+}
+.controls label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.controls strong {
+  color: var(--accent);
+}
+button {
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+button:hover {
+  background: #f8fafc;
+  border-color: var(--accent-deep);
+  color: var(--accent-deep);
+}
+input[type="range"] {
+  flex: 1;
+  min-width: 120px;
+  accent-color: var(--accent);
+}
+input[type="radio"] {
+  accent-color: var(--accent);
+}
+
+.hint {
+  margin: 10px 0 0;
+  font-size: 0.74rem;
+  color: var(--ink-sub);
+}
+
+/* 非対応ブラウザー向けの注記（grid-lanes が無いときだけ表示） */
+.fallback-note {
+  display: none;
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #fff7ed;
+  color: #9a3412;
+  font-size: 0.78rem;
+}
+@supports not (display: grid-lanes) {
+  .fallback-note {
+    display: block;
+  }
+}
+
+/* ランディング */
+.index-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.index-wrap h1 {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+.support-badge {
+  display: inline-block;
+  margin: 4px 0 20px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  background: #334155;
+  color: #e2e8f0;
+}
+.support-badge.ok {
+  background: #065f46;
+  color: #ecfdf5;
+}
+.support-badge.warn {
+  background: #9a3412;
+  color: #fff7ed;
+}
+.demo-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.demo-list a {
+  display: block;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.demo-list a:hover {
+  border-color: var(--accent);
+  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.12);
+}
+.demo-list strong {
+  color: var(--accent-deep);
+}
+.demo-list span {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--ink-sub);
+}

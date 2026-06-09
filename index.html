@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>display: grid-lanes デモ集</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="index-wrap">
+      <h1>display: grid-lanes デモ集</h1>
+      <p>
+        ICS MEDIA の記事「CSSだけでメイソンリーレイアウト -
+        <code>display: grid-lanes</code>の使い方」のサンプル集です。
+      </p>
+      <div id="support" class="support-badge">検出中…</div>
+
+      <ul class="demo-list">
+        <li>
+          <a href="./columns.html">
+            <strong>CSS Columns の限界</strong>
+            <span>従来の代用手段。タブ順序が列ごとに縦移動してしまう</span>
+          </a>
+        </li>
+        <li>
+          <a href="./waterfall.html">
+            <strong>Hello Grid Lanes（waterfall）</strong>
+            <span>最小コード＋幅スライダーで列数の自動変化を確認</span>
+          </a>
+        </li>
+        <li>
+          <a href="./brick.html">
+            <strong>waterfall vs brick</strong>
+            <span>列定義か行定義かで積む向きが変わる</span>
+          </a>
+        </li>
+        <li>
+          <a href="./span.html">
+            <strong>スパンと明示的配置</strong>
+            <span>grid-column / span / マイナスインデックス</span>
+          </a>
+        </li>
+        <li>
+          <a href="./tolerance.html">
+            <strong>flow-tolerance</strong>
+            <span>レーン吸着の許容幅をスライダーで変える</span>
+          </a>
+        </li>
+        <li>
+          <a href="./animejs.html">
+            <strong>anime.js で動きを足す</strong>
+            <span>追加・並び替え・高さ変更・削除を FLIP で</span>
+          </a>
+        </li>
+        <li>
+          <a href="./gsap-flip.html">
+            <strong>GSAP Flip で並び替え遷移</strong>
+            <span>Flip.from() 一発で位置の差分を補間</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      const badge = document.getElementById("support");
+      const ok =
+        typeof CSS !== "undefined" &&
+        CSS.supports &&
+        CSS.supports("display", "grid-lanes");
+      if (ok) {
+        badge.textContent =
+          "このブラウザーは display: grid-lanes に対応しています";
+        badge.classList.add("ok");
+      } else {
+        badge.textContent =
+          "このブラウザーは非対応。各デモは CSS Columns で近似表示します（Safari 26.4 以降で本来の挙動を確認できます）";
+        badge.classList.add("warn");
+      }
+    </script>
+  </body>
+</html>

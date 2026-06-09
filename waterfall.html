@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hello Grid Lanes（waterfall） | display: grid-lanes デモ</title>
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+      /* これがメイソンリーの本体。たった数行 */
+      .lanes {
+        display: grid-lanes;
+        grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+        gap: 10px;
+        transition: max-width 0.3s;
+      }
+
+      /* grid-lanes 非対応ブラウザー向けのフォールバック */
+      @supports not (display: grid-lanes) {
+        .lanes {
+          column-count: auto;
+          column-width: 9rem;
+          column-gap: 10px;
+        }
+        .lanes .card {
+          break-inside: avoid;
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="fallback-note">
+      お使いのブラウザーは <code>display: grid-lanes</code> 非対応のため、CSS
+      Columns で近似表示しています。
+    </p>
+
+    <p class="demo-head">
+      <code>repeat(auto-fill, minmax(9rem, 1fr))</code> ＋
+      <code>display: grid-lanes</code> ／ 幅スライダーで列数の自動変化を確認
+    </p>
+
+    <div class="controls">
+      <label>幅: <strong id="pctLabel">100%</strong></label>
+      <input id="width" type="range" min="28" max="100" step="4" value="100" />
+    </div>
+
+    <div class="lanes" id="stage"></div>
+
+    <p class="hint">
+      スライダーで幅を狭めると、メディアクエリーなしで
+      <strong>列数が自動的に減って</strong> いきます。<code>auto-fill</code> ×
+      <code>minmax</code> がビューポート幅から列数を計算するためです。
+    </p>
+
+    <script>
+      const stage = document.getElementById("stage");
+      // hue=(i*37)%360, h=70+((i*53)%130)
+      for (let i = 0; i < 14; i++) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.style.height = 70 + ((i * 53) % 130) + "px";
+        card.style.background = `hsl(${(i * 37) % 360} 60% 82%)`;
+        card.innerHTML = `<span class="badge">#${i + 1}</span>`;
+        stage.append(card);
+      }
+
+      const range = document.getElementById("width");
+      const label = document.getElementById("pctLabel");
+      range.addEventListener("input", () => {
+        stage.style.maxWidth = range.value + "%";
+        label.textContent = range.value + "%";
+      });
+    </script>
+  </body>
+</html>

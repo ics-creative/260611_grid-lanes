@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>anime.js で動きを足す | display: grid-lanes デモ</title>
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+      .lanes {
+        display: grid-lanes;
+        grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+        gap: 8px;
+      }
+      .lanes .card {
+        will-change: transform, opacity;
+      }
+      @supports not (display: grid-lanes) {
+        .lanes {
+          column-count: 3;
+          column-gap: 8px;
+        }
+        .lanes .card {
+          break-inside: avoid;
+          margin-bottom: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="fallback-note">
+      お使いのブラウザーは <code>display: grid-lanes</code> 非対応のため、CSS
+      Columns で近似表示しています。
+    </p>
+
+    <p class="demo-head">
+      レイアウトは
+      <code>grid-lanes</code
+      >、JavaScript（anime.js）は<strong>動きの補間だけ</strong>を担当
+    </p>
+
+    <div class="controls">
+      <button id="add">+ 3 枚追加</button>
+      <button id="shuffle">並び替え</button>
+      <button id="resize">高さ変更</button>
+      <button id="remove">1 枚削除</button>
+    </div>
+
+    <div class="lanes" id="stage"></div>
+
+    <p class="hint">
+      追加・並び替え・高さ変更・削除のいずれも、要素の前後の位置を測って差分を
+      anime.js で補間する
+      <strong>FLIP</strong>（位置測定 → mutate →
+      補間）で書いています。配置を決めるのは CSS です。
+    </p>
+
+    <script type="module">
+      import {
+        animate,
+        stagger
+      } from "https://cdn.jsdelivr.net/npm/animejs@4/+esm";
+
+      const stage = document.getElementById("stage");
+      let nextId = 1;
+      let cards = [];
+
+      const spawn = () => {
+        const id = nextId++;
+        return { id, hue: (id * 37) % 360, h: 70 + ((id * 53) % 120) };
+      };
+
+      function render() {
+        stage.replaceChildren();
+        for (const c of cards) {
+          const el = document.createElement("div");
+          el.className = "card";
+          el.dataset.id = c.id;
+          el.style.height = c.h + "px";
+          el.style.background = `hsl(${c.hue} 60% 82%)`;
+          el.innerHTML = `<span class="badge">#${c.id}</span>`;
+          stage.append(el);
+        }
+      }
+
+      /** FLIP: 既存カードの位置を測定 → mutate → 差分を anime.js で動かす */
+      function flip(mutate, opts = {}) {
+        const before = new Map();
+        stage.querySelectorAll(".card").forEach(el => {
+          before.set(Number(el.dataset.id), el.getBoundingClientRect());
+        });
+        mutate();
+        render();
+        stage.querySelectorAll(".card").forEach(el => {
+          const b = before.get(Number(el.dataset.id));
+          if (!b) return;
+          const a = el.getBoundingClientRect();
+          const dx = b.left - a.left;
+          const dy = b.top - a.top;
+          if (Math.abs(dx) > 1 || Math.abs(dy) > 1) {
+            animate(el, {
+              translateX: [dx, 0],
+              translateY: [dy, 0],
+              duration: opts.duration ?? 650,
+              ease: opts.ease ?? "outQuart"
+            });
+          }
+        });
+      }
+
+      document.getElementById("add").addEventListener("click", () => {
+        const newOnes = Array.from({ length: 3 }, spawn);
+        cards.push(...newOnes);
+        render();
+        const els = newOnes
+          .map(c => stage.querySelector(`[data-id="${c.id}"]`))
+          .filter(Boolean);
+        animate(els, {
+          opacity: [0, 1],
+          scale: [0.4, 1],
+          translateY: [-32, 0],
+          rotate: [() => (Math.random() - 0.5) * 16, 0],
+          duration: 800,
+          delay: stagger(90),
+          ease: "spring(1, 80, 10, 0)"
+        });
+      });
+
+      document.getElementById("shuffle").addEventListener("click", () => {
+        flip(
+          () => {
+            cards = [...cards].sort(() => Math.random() - 0.5);
+          },
+          { duration: 700, ease: "outQuint" }
+        );
+      });
+
+      document.getElementById("resize").addEventListener("click", () => {
+        if (!cards.length) return;
+        const target = cards[Math.floor(Math.random() * cards.length)];
+        flip(
+          () => {
+            target.h = 60 + Math.floor(Math.random() * 150);
+          },
+          { duration: 600, ease: "outBack" }
+        );
+        const el = stage.querySelector(`[data-id="${target.id}"]`);
+        if (el)
+          animate(el, { scale: [1, 1.08, 1], duration: 500, ease: "outQuad" });
+      });
+
+      document.getElementById("remove").addEventListener("click", () => {
+        if (cards.length <= 3) return;
+        const idx = Math.floor(Math.random() * cards.length);
+        const target = cards[idx];
+        const el = stage.querySelector(`[data-id="${target.id}"]`);
+        if (!el) {
+          cards.splice(idx, 1);
+          render();
+          return;
+        }
+        animate(el, {
+          opacity: [1, 0],
+          scale: [1, 0.5],
+          translateY: [0, 16],
+          duration: 350,
+          ease: "inQuad",
+          onComplete: () => {
+            flip(() => cards.splice(idx, 1), {
+              duration: 500,
+              ease: "outQuart"
+            });
+          }
+        });
+      });
+
+      cards = Array.from({ length: 9 }, spawn);
+      render();
+    </script>
+  </body>
+</html>

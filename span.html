@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>スパンと明示的配置 | display: grid-lanes デモ</title>
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+      .lanes {
+        display: grid-lanes;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+      /* Grid と同じ構文でアイテム幅を拡張できる */
+      .lanes > header {
+        grid-column: 1 / -1; /* 全幅 */
+        height: 40px;
+        flex-direction: row;
+        gap: 8px;
+        background: hsl(245 60% 88%);
+      }
+      .span-2 {
+        grid-column: span 2; /* 2列ぶん */
+      }
+      .span-end {
+        grid-column: -3 / -1; /* 右寄せ2列（マイナスインデックス） */
+      }
+
+      @supports not (display: grid-lanes) {
+        .lanes {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          grid-auto-rows: minmax(60px, auto);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="fallback-note">
+      お使いのブラウザーは <code>display: grid-lanes</code> 非対応のため、通常の
+      Grid で近似表示しています。
+    </p>
+
+    <p class="demo-head">
+      <code>grid-column: 1 / -1</code> / <code>span 2</code> /
+      <code>-3 / -1</code>（マイナスインデックスの右寄せ）
+    </p>
+
+    <div class="lanes" id="stage">
+      <header class="card">
+        <span class="badge">header</span>
+        <span class="label">grid-column: 1 / -1</span>
+      </header>
+    </div>
+
+    <script>
+      const stage = document.getElementById("stage");
+      // hue=(i*29)%360, h=70+((i*41)%110)
+      for (let i = 0; i < 14; i++) {
+        const id = i + 1;
+        const card = document.createElement("article");
+        card.className = "card";
+        if (id === 3) card.classList.add("span-2");
+        if (id === 7) card.classList.add("span-end");
+        card.style.height = 70 + ((i * 41) % 110) + "px";
+        card.style.background = `hsl(${(i * 29) % 360} 60% 82%)`;
+        let note = "normal";
+        let cls = "label";
+        if (id === 3) note = "span 2";
+        else if (id === 7) {
+          note = "-3 / -1";
+          cls = "label accent";
+        }
+        card.innerHTML = `<span class="badge">#${id}</span><span class="${cls}">${note}</span>`;
+        stage.append(card);
+      }
+    </script>
+  </body>
+</html>

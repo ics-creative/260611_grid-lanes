@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>flow-tolerance | display: grid-lanes デモ</title>
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+      .lanes {
+        display: grid-lanes;
+        grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+        gap: 6px;
+        /* スライダーで書き換える吸着の許容幅 */
+        flow-tolerance: var(--flow-tolerance, 1em);
+      }
+      .lanes .card:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      @supports not (display: grid-lanes) {
+        .lanes {
+          column-count: 4;
+          column-gap: 6px;
+        }
+        .lanes .card {
+          break-inside: avoid;
+          margin-bottom: 6px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="fallback-note">
+      お使いのブラウザーは <code>display: grid-lanes</code> 非対応のため、CSS
+      Columns で近似表示しています（<code>flow-tolerance</code>
+      の効果は確認できません）。
+    </p>
+
+    <p class="demo-head">
+      <code>flow-tolerance</code>
+      ＝「ほぼ同じ高さのレーン」とみなす許容幅。値で詰め方が変わる
+    </p>
+
+    <div class="controls">
+      <label>flow-tolerance: <strong id="valLabel">1.0em</strong></label>
+      <input id="tol" type="range" min="0" max="4" step="0.1" value="1" />
+    </div>
+
+    <div class="lanes" id="stage" style="--flow-tolerance: 1em"></div>
+
+    <p class="hint">
+      カードの高さはわざと近づけてあります。値を
+      <strong>大きく</strong>すると近い高さのレーンを
+      「同じ」とみなしてソース順（#1→#2→…）を保ちます。<strong
+        >0 に近づける</strong
+      >と最短レーンを 厳密に選ぶため番号が飛び飛びになります。<kbd>Tab</kbd>
+      でたどると、視覚順とフォーカス順の
+      ズレ具合が値によって変わるのが分かります。
+    </p>
+
+    <script>
+      const stage = document.getElementById("stage");
+      // hue=(i*31)%360, h=90+((i*17)%30) — 高さが近いカード群
+      for (let i = 0; i < 14; i++) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.tabIndex = 0;
+        card.style.height = 90 + ((i * 17) % 30) + "px";
+        card.style.background = `hsl(${(i * 31) % 360} 60% 82%)`;
+        card.innerHTML = `<span class="badge">#${i + 1}</span>`;
+        stage.append(card);
+      }
+
+      const tol = document.getElementById("tol");
+      const label = document.getElementById("valLabel");
+      tol.addEventListener("input", () => {
+        stage.style.setProperty("--flow-tolerance", tol.value + "em");
+        label.textContent = Number(tol.value).toFixed(1) + "em";
+      });
+    </script>
+  </body>
+</html>
