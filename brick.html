@@ -8,26 +8,27 @@
     <style>
       .lanes {
         container-type: inline-size;
-      }
 
-      /* waterfall = 縦方向のメイソンリー（列を定義） */
-      .lanes.columns {
-        display: grid-lanes;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-      }
+        /* waterfall = 縦方向のメイソンリー（列を定義） */
+        &.columns {
+          display: grid-lanes;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 8px;
+        }
 
-      /* brick = 横方向のメイソンリー（行を定義） */
-      .lanes.rows {
-        display: grid-lanes;
-        grid-template-rows: repeat(4, minmax(48px, auto));
-        align-items: start;
-        gap: 8px;
-        width: 100%;
-        overflow: hidden;
-      }
-      .lanes.rows .card {
-        width: calc((100cqi - 16px) / 3);
+        /* brick = 横方向のメイソンリー（行を定義） */
+        &.rows {
+          display: grid-lanes;
+          grid-template-rows: repeat(4, minmax(48px, auto));
+          align-items: start;
+          gap: 8px;
+          width: 100%;
+          overflow: hidden;
+
+          .card {
+            width: calc((100cqi - 16px) / 3);
+          }
+        }
       }
     </style>
   </head>
@@ -59,7 +60,7 @@
         const card = document.createElement("div");
         card.className = "card";
         card.style.height = 70 + ((i * 43) % 120) + "px";
-        card.style.background = `hsl(${(i * 47) % 360} 60% 82%)`;
+        card.style.background = `hsl(${(i * 47) % 360} 60% 80%)`;
         card.innerHTML = `<span class="badge">#${i + 1}</span>`;
         stage.append(card);
       }

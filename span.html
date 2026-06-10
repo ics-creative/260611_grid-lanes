@@ -10,14 +10,15 @@
         display: grid-lanes;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 8px;
-      }
-      /* Grid と同じ構文でアイテム幅を拡張できる */
-      .lanes > header {
-        grid-column: 1 / -1; /* 全幅 */
-        height: 40px;
-        flex-direction: row;
-        gap: 8px;
-        background: hsl(245 60% 88%);
+
+        /* Grid と同じ構文でアイテム幅を拡張できる */
+        > header {
+          grid-column: 1 / -1; /* 全幅 */
+          height: 40px;
+          flex-direction: row;
+          gap: 8px;
+          background: hsl(245 60% 90%);
+        }
       }
       .span-2 {
         grid-column: span 2; /* 2列ぶん */
@@ -50,7 +51,7 @@
         if (id === 3) card.classList.add("span-2");
         if (id === 7) card.classList.add("span-end");
         card.style.height = 70 + ((i * 41) % 110) + "px";
-        card.style.background = `hsl(${(i * 29) % 360} 60% 82%)`;
+        card.style.background = `hsl(${(i * 29) % 360} 60% 80%)`;
         let note = "normal";
         let cls = "label";
         if (id === 3) note = "grid-column: span 2";

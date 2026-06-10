@@ -10,9 +10,10 @@
         display: grid-lanes;
         grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
         gap: 8px;
-      }
-      .lanes .card {
-        will-change: transform, opacity;
+
+        .card {
+          will-change: transform, opacity;
+        }
       }
     </style>
   </head>
@@ -62,7 +63,7 @@
           el.className = "card";
           el.dataset.id = c.id;
           el.style.height = c.h + "px";
-          el.style.background = `hsl(${c.hue} 60% 82%)`;
+          el.style.background = `hsl(${c.hue} 60% 80%)`;
           el.innerHTML = `<span class="badge">#${c.id}</span>`;
           stage.append(el);
         }
