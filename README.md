@@ -18,15 +18,14 @@ Slidev のスライドで作成したデモを、ビルド不要の素の HTML /
 
 ## 動作環境
 
-- `display: grid-lanes` は **Safari 26.4 以降**で安定版に対応しています。
-- 非対応のブラウザー（Chromium 系・Firefox など）では、各デモが `@supports` によって
-  **CSS Columns へフォールバック**し、近似表示になります（本来の挙動は確認できません）。
+- `display: grid-lanes` は **Safari 26.4 以降**で利用できます。
+- そのほかのブラウザー（Chromium 系・Firefox など）は未対応のため、デモは本来の表示になりません。
 - 最新の対応状況は [Can I use](https://caniuse.com/mdn-css_properties_display_grid-lanes) を参照してください。
 
 ## ローカルで開く
 
-各 HTML は単体で開けます。`animejs.html` と `gsap-flip.html` は CDN から
-ライブラリを読み込むため、ネットワーク接続が必要です。
+各 HTML は単体で開けます。アニメーション用ライブラリは `vendor/` に同梱しているため、
+ネットワーク接続は不要です（anime.js 4.4.1 / GSAP 3.15.0）。
 
 ```sh
 # 任意の静的サーバーで配信（例）
@@ -35,4 +34,5 @@ npx serve .
 
 ## ライセンス
 
-MIT License
+このリポジトリのコードは MIT License です。
+`vendor/` に同梱した anime.js（MIT・`vendor/LICENSE-animejs.md`）と GSAP（[Standard License](https://gsap.com/standard-license/)）は、それぞれのライセンスに従います。
