@@ -124,22 +124,30 @@ input[type="radio"] {
   font-weight: 600;
 }
 .support-badge {
-  display: inline-block;
+  display: none;
   margin: 4px 0 20px;
   padding: 4px 12px;
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 500;
-  background: #334155;
-  color: #e2e8f0;
+}
+/* 既定（非対応）は warn を表示し、@supports が成立したら ok に切り替える */
+.support-badge.warn {
+  display: inline-block;
+  background: #9a3412;
+  color: #fff7ed;
 }
 .support-badge.ok {
   background: #065f46;
   color: #ecfdf5;
 }
-.support-badge.warn {
-  background: #9a3412;
-  color: #fff7ed;
+@supports (display: grid-lanes) {
+  .support-badge.ok {
+    display: inline-block;
+  }
+  .support-badge.warn {
+    display: none;
+  }
 }
 .demo-list {
   list-style: none;

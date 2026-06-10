@@ -13,7 +13,13 @@
         ICS MEDIA の記事「CSSだけでメイソンリーレイアウト -
         <code>display: grid-lanes</code>の使い方」のサンプル集です。
       </p>
-      <div id="support" class="support-badge">検出中…</div>
+      <div class="support-badge ok">
+        このブラウザーは display: grid-lanes に対応しています
+      </div>
+      <div class="support-badge warn">
+        このブラウザーは display: grid-lanes 非対応です。Safari 26.4
+        以降で開いてください
+      </div>
 
       <ul class="demo-list">
         <li>
@@ -61,21 +67,5 @@
       </ul>
     </div>
 
-    <script>
-      const badge = document.getElementById("support");
-      const ok =
-        typeof CSS !== "undefined" &&
-        CSS.supports &&
-        CSS.supports("display", "grid-lanes");
-      if (ok) {
-        badge.textContent =
-          "このブラウザーは display: grid-lanes に対応しています";
-        badge.classList.add("ok");
-      } else {
-        badge.textContent =
-          "このブラウザーは display: grid-lanes 非対応です。Safari 26.4 以降で開いてください";
-        badge.classList.add("warn");
-      }
-    </script>
   </body>
 </html>
