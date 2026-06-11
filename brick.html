@@ -7,27 +7,19 @@
     <link rel="stylesheet" href="./style.css" />
     <style>
       .lanes {
-        container-type: inline-size;
-
-        /* waterfall = 縦方向のメイソンリー（列を定義） */
+        /* waterfall = 縦方向のメイソンリー（列を定義。カードは高さがばらばら） */
         &.columns {
           display: grid-lanes;
           grid-template-columns: repeat(3, 1fr);
           gap: 8px;
         }
 
-        /* brick = 横方向のメイソンリー（行を定義） */
+        /* brick = 横方向のメイソンリー（行を定義。カードは幅がばらばらで右へ流れる） */
         &.rows {
           display: grid-lanes;
-          grid-template-rows: repeat(4, minmax(48px, auto));
-          align-items: start;
+          grid-template-rows: repeat(3, 96px);
           gap: 8px;
-          width: 100%;
-          overflow: hidden;
-
-          .card {
-            width: calc((100cqi - 16px) / 3);
-          }
+          overflow-x: auto;
         }
       }
     </style>
@@ -49,20 +41,35 @@
 
     <script>
       const stage = document.getElementById("stage");
-      // hue=(i*47)%360, h=70+((i*43)%120)
-      for (let i = 0; i < 12; i++) {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.style.height = 70 + ((i * 43) % 120) + "px";
-        card.style.background = `hsl(${(i * 47) % 360} 60% 80%)`;
-        card.innerHTML = `<span class="badge">#${i + 1}</span>`;
-        stage.append(card);
+      // waterfall では高さ(h)が、brick では幅(w)がばらつく
+      const cards = [];
+      for (let i = 0; i < 14; i++) {
+        const el = document.createElement("div");
+        el.className = "card";
+        el.style.background = `hsl(${(i * 47) % 360} 60% 80%)`;
+        el.innerHTML = `<span class="badge">#${i + 1}</span>`;
+        stage.append(el);
+        cards.push({ el, h: 70 + ((i * 43) % 120), w: 90 + ((i * 53) % 150) });
       }
 
+      function setMode(mode) {
+        stage.className = "lanes " + mode;
+        for (const c of cards) {
+          if (mode === "columns") {
+            // 縦積み: 高さはカード固有、幅は列トラックに任せる
+            c.el.style.height = c.h + "px";
+            c.el.style.width = "";
+          } else {
+            // 横積み: 幅はカード固有、高さは行トラックに任せる
+            c.el.style.width = c.w + "px";
+            c.el.style.height = "";
+          }
+        }
+      }
+      setMode("columns");
+
       for (const radio of document.querySelectorAll('input[name="dir"]')) {
-        radio.addEventListener("change", () => {
-          stage.className = "lanes " + radio.value;
-        });
+        radio.addEventListener("change", () => setMode(radio.value));
       }
     </script>
   </body>
