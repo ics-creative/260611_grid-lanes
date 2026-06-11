@@ -8,7 +8,7 @@
     <style>
       .lanes {
         display: grid-lanes;
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(144px, 1fr));
         gap: 6px;
         /* スライダーで書き換える吸着の許容幅 */
         flow-tolerance: var(--flow-tolerance, 1em);
@@ -33,7 +33,7 @@
     <script>
       const stage = document.getElementById("stage");
       // hue=(i*31)%360, h=90+((i*17)%30) — 高さが近いカード群
-      for (let i = 0; i < 14; i++) {
+      for (let i = 0; i < 18; i++) {
         const card = document.createElement("div");
         card.className = "card";
         card.tabIndex = 0;
