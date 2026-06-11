@@ -18,7 +18,7 @@
 
       .lanes {
         display: grid-lanes;
-        grid-template-columns: repeat(auto-fill, minmax(144px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(min(144px, 30%), 1fr));
         gap: 6px;
         /* スライダーで書き換える吸着の許容幅 */
         flow-tolerance: var(--flow-tolerance, 1em);
