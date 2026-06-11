@@ -6,6 +6,16 @@
     <title>flow-tolerance | display: grid-lanes demo</title>
     <link rel="stylesheet" href="./style.css" />
     <style>
+      /* スクロールしながら値を変えられるよう、操作パネルを画面上部に固定 */
+      .controls {
+        position: sticky;
+        top: 0;
+        background: #fff;
+        z-index: 10;
+        padding: 8px 0;
+        margin-bottom: 0;
+      }
+
       .lanes {
         display: grid-lanes;
         grid-template-columns: repeat(auto-fill, minmax(144px, 1fr));
