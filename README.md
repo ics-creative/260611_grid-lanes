@@ -1,17 +1,16 @@
 # 260611_grid-lanes
 
-ICS MEDIA の記事「CSS だけでメイソンリーレイアウト - `display: grid-lanes`の使い方」のサンプル集です。
-Slidev のスライドで作成したデモを、ビルド不要の素の HTML / CSS / JavaScript に移植したものです。
+ICS MEDIA の記事「CSS だけでメイソンリーレイアウト - `display: grid-lanes`の使い方」で紹介しているデモのソースコードです。
+ビルド不要の素の HTML / CSS / JavaScript で書かれています。
 
 ## デモ一覧
 
 | ページ           | 内容                                           | 記事の対応セクション             |
 | ---------------- | ---------------------------------------------- | -------------------------------- |
 | `index.html`     | デモ集のトップ（対応状況バッジ付き）           | —                                |
-| `columns.html`   | CSS Columns の限界（タブ順序が列ごとに縦移動） | CSS Columns の擬似解と、その限界 |
-| `waterfall.html` | 最小コード＋幅スライダーでレスポンシブを確認   | Hello Grid Lanes / レスポンシブ  |
+| `waterfall.html` | 最小コード＋幅スライダーでレスポンシブを確認   | display: grid-lanes — Hello Grid Lanes |
 | `brick.html`     | waterfall（縦）と brick（横）の切り替え        | 方向の切り替え                   |
-| `span.html`      | `grid-column` / `span` / マイナスインデックス  | スパンと明示的配置               |
+| `span.html`      | `grid-column` / `span` / マイナスインデックス  | アイテムのスパンと明示的配置     |
 | `tolerance.html` | `flow-tolerance` をスライダーで変える          | flow-tolerance                   |
 | `animejs.html`   | anime.js で追加・並び替え・高さ変更・削除      | JS との連携                      |
 | `gsap-flip.html` | GSAP Flip で並び替え遷移                       | JS との連携                      |

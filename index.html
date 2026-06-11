@@ -1,67 +1,61 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>display: grid-lanes デモ集</title>
+    <title>display: grid-lanes demos</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <div class="index-wrap">
-      <h1>display: grid-lanes デモ集</h1>
+      <h1>display: grid-lanes demos</h1>
       <p>
-        ICS MEDIA の記事「CSSだけでメイソンリーレイアウト -
-        <code>display: grid-lanes</code>の使い方」のサンプル集です。
+        Demos for the ICS MEDIA article about
+        <code>display: grid-lanes</code>.
       </p>
       <div class="support-badge ok">
-        このブラウザーは display: grid-lanes に対応しています
+        This browser supports display: grid-lanes
       </div>
       <div class="support-badge warn">
-        このブラウザーは display: grid-lanes 非対応です。Safari 26.4
-        以降で開いてください
+        This browser does not support display: grid-lanes. Open in Safari 26.4
+        or later.
       </div>
 
       <ul class="demo-list">
         <li>
-          <a href="./columns.html">
-            <strong>CSS Columns の限界</strong>
-            <span>従来の代用手段。タブ順序が列ごとに縦移動してしまう</span>
-          </a>
-        </li>
-        <li>
           <a href="./waterfall.html">
-            <strong>Hello Grid Lanes（waterfall）</strong>
-            <span>最小コード＋幅スライダーで列数の自動変化を確認</span>
+            <strong>Hello Grid Lanes (waterfall)</strong>
+            <span>Minimal code + width slider</span>
           </a>
         </li>
         <li>
           <a href="./brick.html">
             <strong>waterfall vs brick</strong>
-            <span>列定義か行定義かで積む向きが変わる</span>
+            <span>Direction depends on columns / rows definition</span>
           </a>
         </li>
         <li>
           <a href="./span.html">
-            <strong>スパンと明示的配置</strong>
-            <span>grid-column / span / マイナスインデックス</span>
+            <strong>Span and explicit placement</strong>
+            <span>grid-column / span / negative line numbers</span>
           </a>
         </li>
         <li>
           <a href="./tolerance.html">
             <strong>flow-tolerance</strong>
-            <span>レーン吸着の許容幅をスライダーで変える</span>
+            <span>Adjust the lane snapping threshold</span>
           </a>
         </li>
         <li>
           <a href="./animejs.html">
-            <strong>anime.js で動きを足す</strong>
-            <span>追加・並び替え・高さ変更・削除を FLIP で</span>
+            <strong>Adding motion with anime.js</strong>
+            <span>Add / shuffle / resize / remove with FLIP</span>
           </a>
         </li>
         <li>
           <a href="./gsap-flip.html">
-            <strong>GSAP Flip で並び替え遷移</strong>
-            <span>Flip.from() 一発で位置の差分を補間</span>
+            <strong>Reordering with GSAP Flip</strong>
+            <span>Interpolate position diffs with Flip.from()</span>
           </a>
         </li>
       </ul>

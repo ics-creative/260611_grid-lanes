@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hello Grid Lanes（waterfall） | display: grid-lanes デモ</title>
+    <title>Hello Grid Lanes (waterfall) | display: grid-lanes demo</title>
     <link rel="stylesheet" href="./style.css" />
     <style>
       /* これがメイソンリーの本体。たった数行 */
@@ -16,23 +16,14 @@
     </style>
   </head>
   <body>
-    <p class="demo-head">
-      <code>repeat(auto-fill, minmax(144px, 1fr))</code> ＋
-      <code>display: grid-lanes</code> ／ 幅スライダーで列数の自動変化を確認
-    </p>
 
     <div class="controls">
-      <label>幅: <strong id="pctLabel">100%</strong></label>
+      <label>Width: <strong id="pctLabel">100%</strong></label>
       <input id="width" type="range" min="28" max="100" step="4" value="100" />
     </div>
 
     <div class="lanes" id="stage"></div>
 
-    <p class="hint">
-      スライダーで幅を狭めると、メディアクエリーなしで
-      <strong>列数が自動的に減って</strong> いきます。<code>auto-fill</code> ×
-      <code>minmax</code> がビューポート幅から列数を計算するためです。
-    </p>
 
     <script>
       const stage = document.getElementById("stage");

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>anime.js で動きを足す | display: grid-lanes デモ</title>
+    <title>Adding motion with anime.js | display: grid-lanes demo</title>
     <link rel="stylesheet" href="./style.css" />
     <style>
       .lanes {
@@ -18,27 +18,16 @@
     </style>
   </head>
   <body>
-    <p class="demo-head">
-      レイアウトは
-      <code>grid-lanes</code
-      >、JavaScript（anime.js）は<strong>動きの補間だけ</strong>を担当
-    </p>
 
     <div class="controls">
-      <button id="add">+ 3 枚追加</button>
-      <button id="shuffle">並び替え</button>
-      <button id="resize">高さ変更</button>
-      <button id="remove">1 枚削除</button>
+      <button id="add">Add ×3</button>
+      <button id="shuffle">Shuffle</button>
+      <button id="resize">Resize</button>
+      <button id="remove">Remove</button>
     </div>
 
     <div class="lanes" id="stage"></div>
 
-    <p class="hint">
-      追加・並び替え・高さ変更・削除のいずれも、要素の前後の位置を測って差分を
-      anime.js で補間する
-      <strong>FLIP</strong>（位置測定 → mutate →
-      補間）で書いています。配置を決めるのは CSS です。
-    </p>
 
     <script type="module">
       import {

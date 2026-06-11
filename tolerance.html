@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>flow-tolerance | display: grid-lanes デモ</title>
+    <title>flow-tolerance | display: grid-lanes demo</title>
     <link rel="stylesheet" href="./style.css" />
     <style>
       .lanes {
@@ -21,10 +21,6 @@
     </style>
   </head>
   <body>
-    <p class="demo-head">
-      <code>flow-tolerance</code>
-      ＝「ほぼ同じ高さのレーン」とみなす許容幅。値で詰め方が変わる
-    </p>
 
     <div class="controls">
       <label>flow-tolerance: <strong id="valLabel">1.0em</strong></label>
@@ -33,15 +29,6 @@
 
     <div class="lanes" id="stage" style="--flow-tolerance: 1em"></div>
 
-    <p class="hint">
-      カードの高さはわざと近づけてあります。値を
-      <strong>大きく</strong>すると近い高さのレーンを
-      「同じ」とみなしてソース順（#1→#2→…）を保ちます。<strong
-        >0 に近づける</strong
-      >と最短レーンを 厳密に選ぶため番号が飛び飛びになります。<kbd>Tab</kbd>
-      でたどると、視覚順とフォーカス順の
-      ズレ具合が値によって変わるのが分かります。
-    </p>
 
     <script>
       const stage = document.getElementById("stage");

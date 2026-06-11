@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>GSAP Flip で並び替え遷移 | display: grid-lanes デモ</title>
+    <title>Reordering with GSAP Flip | display: grid-lanes demo</title>
     <link rel="stylesheet" href="./style.css" />
     <style>
       .lanes {
@@ -16,22 +16,14 @@
     <script src="./vendor/Flip.min.js"></script>
   </head>
   <body>
-    <p class="demo-head">
-      <strong>FLIP</strong>（First-Last-Invert-Play）を
-      <code>Flip.from()</code> 一発で。配置は <code>grid-lanes</code> 任せ
-    </p>
 
     <div class="controls">
-      <button id="shuffle">並び替え（FLIP）</button>
-      <button id="resize">1 枚の高さを変える</button>
+      <button id="shuffle">Shuffle (FLIP)</button>
+      <button id="resize">Resize one card</button>
     </div>
 
     <div class="lanes" id="stage"></div>
 
-    <p class="hint">
-      並び替えても高さを変えても、<code>grid-lanes</code>
-      が再配置した「新しい位置」へ GSAP がなめらかに補間します。
-    </p>
 
     <script>
       gsap.registerPlugin(Flip);
